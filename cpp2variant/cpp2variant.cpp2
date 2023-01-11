@@ -1,3 +1,21 @@
+#include <vector>
+
+struct EngineObject
+{
+    EngineObject() :val(std::rand()) {}
+    int val;
+    auto operator<=>(const EngineObject&) const = default;
+};
+
+struct PropertyValue { std::variant<bool, int, double, std::vector<PropertyValue>, std::shared_ptr<EngineObject>> val_; };
+
+compare: (lhs:PropertyValue, rhs:PropertyValue) -> std::partial_ordering = {
+    return inspect (lhs, rhs) -> std::partial_ordering {
+            is (std::shared_ptr<EngineObject>, std::shared_ptr<EngineObject>) = std::partial_ordering(*lhs <=> *rhs); 
+            is (_,_) = std::partial_ordering::unordered;
+            };
+}
+
 main: () -> int = {
     std::cout << "hello world!";
 }

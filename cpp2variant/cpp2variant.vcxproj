@@ -66,6 +66,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>cppfront\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,14 +86,16 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compiling cppfront</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cppfront;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cppfront;%(Outputs)</Outputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatOutputAsContent>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="cpp2variant.cpp2">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cppfront %(Filename).cpp2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cppfront %(Filename).cpp2 -s -a</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cppfront %(Filename).cpp2</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cppfront %(Filename).cpp2 -s -a</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).cpp</Outputs>
     </CustomBuild>
   </ItemGroup>
